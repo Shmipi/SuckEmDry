@@ -13,6 +13,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lookDirection;
     private float lookAngle;
 
+    public bool extracting;
+
     // Update is called once per frame
     void Update()
     {
@@ -21,6 +23,18 @@ public class PlayerMovement : MonoBehaviour
         lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
+
+        if (Input.GetKeyDown("e"))
+        {
+            extracting = true;
+            Debug.Log(extracting);
+        }
+
+        if (Input.GetKeyUp("e"))
+        {
+            extracting = false;
+            Debug.Log(extracting);
+        }
     }
 
     private void FixedUpdate()
