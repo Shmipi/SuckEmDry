@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Lake
   - City
+  - Woods
+  - Mountain
+  - Oil
   layers:
   - Default
   - TransparentFX
