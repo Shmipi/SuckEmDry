@@ -6,7 +6,6 @@ public class ResourceScript : MonoBehaviour
 {
     private float resourceHealth;
 
-    private bool full;
     private bool twoThirds;
     private bool oneThird;
     private bool empty;
@@ -15,6 +14,8 @@ public class ResourceScript : MonoBehaviour
 
     private GameObject player;
     private PlayerMovement pm;
+
+    private GCScript gc;
 
     private SpriteRenderer spriteRenderer;
 
@@ -26,7 +27,8 @@ public class ResourceScript : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         pm = player.GetComponent<PlayerMovement>();
 
-        full = true;
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
+
         twoThirds = false;
         oneThird = false;
         empty = false;
@@ -39,38 +41,43 @@ public class ResourceScript : MonoBehaviour
     {
         if(resourceHealth > 666)
         {
-            full = true;
             twoThirds = false;
             oneThird = false;
             empty = false;
             spriteRenderer.color = Color.blue;
         } else if(resourceHealth <= 666 && resourceHealth > 333)
         {
-            full = false;
-            twoThirds = true;
-            oneThird = false;
-            empty = false;
             spriteRenderer.color = Color.red;
+
+            if(twoThirds == false)
+            {
+                gc.respawnDepletion();
+                twoThirds = true;
+            }
         } else if(resourceHealth <= 333 && resourceHealth > 0)
         {
-            full = false;
-            twoThirds = false;
-            oneThird = true;
-            empty = false;
             spriteRenderer.color = Color.green;
+
+            if(oneThird == false)
+            {
+                gc.respawnDepletion();
+                oneThird = true;
+            }
         } else if(resourceHealth <= 0)
         {
-            full = false;
-            twoThirds = false;
-            oneThird = false;
-            empty = true;
             spriteRenderer.color = Color.black;
+
+            if(empty == false)
+            {
+                gc.respawnDepletion();
+                empty = true;
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        if(isColliding == true && pm.extracting == true)
+        if(isColliding == true && pm.extracting == true && resourceHealth > 0)
         {
             resourceHealth -= 1f;
         }
