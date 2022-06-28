@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class GCScript : MonoBehaviour
 {
+    private CityScript cityScript;
 
     private float respawnVar;
 
     // Start is called before the first frame update
     void Start()
     {
+        cityScript = GameObject.FindGameObjectWithTag("City").GetComponent<CityScript>();
+
         respawnVar = 1200f;
         Debug.Log("RespawnVar" + respawnVar);
     }
@@ -23,6 +26,7 @@ public class GCScript : MonoBehaviour
     public void respawnDepletion()
     {
         respawnVar -= 100f;
+        cityScript.spawnUp();
         Debug.Log("RespawnVar" + respawnVar);
     }
 }
