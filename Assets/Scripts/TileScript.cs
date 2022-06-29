@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TileScript : MonoBehaviour
 {
+    private GCScript gc;
+
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Sprite img1;
@@ -14,9 +16,17 @@ public class TileScript : MonoBehaviour
 
     private int rndNr = 0;
 
+    [SerializeField] private GameObject lake;
+    [SerializeField] private GameObject woods;
+    [SerializeField] private GameObject mountain;
+    [SerializeField] private GameObject oil;
+    [SerializeField] private GameObject city;
+
     // Start is called before the first frame update
     void Start()
     {
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
+
         rndNr = Random.Range(1, 6);
 
         if(rndNr == 1)
@@ -42,5 +52,30 @@ public class TileScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void generation()
+    {
+        if(gc.lake == false)
+        {
+            GameObject deposit = Instantiate(lake, gameObject.transform.position, gameObject.transform.rotation);
+            gc.lake = true;
+        } else if (gc.woods == false)
+        {
+            GameObject deposit = Instantiate(woods, gameObject.transform.position, gameObject.transform.rotation);
+            gc.woods = true;
+        } else if(gc.mountain == false)
+        {
+            GameObject deposit = Instantiate(mountain, gameObject.transform.position, gameObject.transform.rotation);
+            gc.mountain = true;
+        } else if (gc.oil == false)
+        {
+            GameObject deposit = Instantiate(oil, gameObject.transform.position, gameObject.transform.rotation);
+            gc.oil = true;
+        } else if(gc.cities < 4)
+        {
+            GameObject deposit = Instantiate(city, gameObject.transform.position, gameObject.transform.rotation);
+            gc.cityCounter();
+        }
     }
 }

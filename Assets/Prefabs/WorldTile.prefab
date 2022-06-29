@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4267019913979660958}
   m_Layer: 0
   m_Name: WorldTile
-  m_TagString: Untagged
+  m_TagString: WorldTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,8 +69,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -808873897
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7313853633832734602, guid: b8fee91a0194e8f419e5e7aabd9cffdb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,3 +101,8 @@ MonoBehaviour:
   img3: {fileID: -7209566371100159911, guid: b8fee91a0194e8f419e5e7aabd9cffdb, type: 3}
   img4: {fileID: 5762645186507190578, guid: b8fee91a0194e8f419e5e7aabd9cffdb, type: 3}
   img5: {fileID: 3232479176655502310, guid: b8fee91a0194e8f419e5e7aabd9cffdb, type: 3}
+  lake: {fileID: 4518026805455302500, guid: 8051e2185c74c104296cb5bb5a146265, type: 3}
+  woods: {fileID: 3601402371338640447, guid: 1d77ded3688517849a9daa3d8741e777, type: 3}
+  mountain: {fileID: 7717870055000320863, guid: cd46bd6c14326c047b688a988bbbfab7, type: 3}
+  oil: {fileID: 7420104595313538143, guid: e54db6b2cb8eb0f43a2cac94685d341d, type: 3}
+  city: {fileID: 3102716371795946447, guid: c95166624d39818498c713be32e385bf, type: 3}

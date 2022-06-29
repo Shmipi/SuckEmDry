@@ -19,10 +19,17 @@ public class ResourceScript : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
 
+    [SerializeField] private Sprite first;
+    [SerializeField] private Sprite second;
+    [SerializeField] private Sprite third;
+    [SerializeField] private Sprite fourth;
+
+
     // Start is called before the first frame update
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = first;
 
         player = GameObject.FindGameObjectWithTag("Player");
         pm = player.GetComponent<PlayerMovement>();
@@ -44,10 +51,10 @@ public class ResourceScript : MonoBehaviour
             twoThirds = false;
             oneThird = false;
             empty = false;
-            spriteRenderer.color = Color.blue;
+            spriteRenderer.sprite = first;
         } else if(resourceHealth <= 666 && resourceHealth > 333)
         {
-            spriteRenderer.color = Color.red;
+            spriteRenderer.sprite = second;
 
             if(twoThirds == false)
             {
@@ -56,7 +63,7 @@ public class ResourceScript : MonoBehaviour
             }
         } else if(resourceHealth <= 333 && resourceHealth > 0)
         {
-            spriteRenderer.color = Color.green;
+            spriteRenderer.sprite = third;
 
             if(oneThird == false)
             {
@@ -65,7 +72,7 @@ public class ResourceScript : MonoBehaviour
             }
         } else if(resourceHealth <= 0)
         {
-            spriteRenderer.color = Color.black;
+            spriteRenderer.sprite = fourth;
 
             if(empty == false)
             {
