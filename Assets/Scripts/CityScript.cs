@@ -8,6 +8,8 @@ public class CityScript : MonoBehaviour
     private float maxSpawnNr;
     private float spawnNr;
 
+    [SerializeField] private GameObject soldier;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class CityScript : MonoBehaviour
         if(spawnNr > 804 && spawnNr < 815)
         {
             Debug.Log("Spawn Foot Soldier");
+            GameObject soldierInstant = Instantiate(soldier, gameObject.transform.position, gameObject.transform.rotation);
         } else if(spawnNr > 211 && spawnNr < 216)
         {
             Debug.Log("Spawn Tank");

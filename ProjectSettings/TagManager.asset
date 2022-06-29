@@ -10,6 +10,8 @@ TagManager:
   - Mountain
   - Oil
   - WorldTile
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
