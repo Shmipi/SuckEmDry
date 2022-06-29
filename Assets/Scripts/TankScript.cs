@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldierScript : MonoBehaviour
+public class TankScript : MonoBehaviour
 {
     private Animator animator;
 
-    [SerializeField] private float speed = 2.5f;
+    [SerializeField] private float speed = 5f;
     private GameObject player;
 
     private Vector2 lookDirection;
@@ -14,11 +14,11 @@ public class SoldierScript : MonoBehaviour
 
     private bool inRange;
 
-    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject tankShell;
     [SerializeField] private GameObject bulletSpawn;
 
     private float startTime = 0f;
-    [SerializeField] private float holdTime = 0.5f;
+    [SerializeField] private float holdTime = 2f;
     private float timer = 0f;
 
     private bool canShoot;
@@ -41,32 +41,33 @@ public class SoldierScript : MonoBehaviour
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
 
-        if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) > 2)
+        if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) > 4)
         {
-            animator.SetBool("isWalking", true);
+            animator.SetBool("isMoving", true);
             inRange = false;
             var step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, player.GetComponent<Transform>().position, step);
-        } else
+        }
+        else
         {
-            animator.SetBool("isWalking", false);
+            animator.SetBool("isMoving", false);
             inRange = true;
         }
 
         if (canShoot == false)
         {
             timer += Time.deltaTime;
-            if(timer > (startTime + holdTime))
+            if (timer > (startTime + holdTime))
             {
                 canShoot = true;
             }
         }
-        
+
     }
 
     private void FixedUpdate()
     {
-        if(inRange == true && canShoot == true)
+        if (inRange == true && canShoot == true)
         {
             fireBullet();
         }
@@ -74,8 +75,8 @@ public class SoldierScript : MonoBehaviour
 
     private void fireBullet()
     {
-        GameObject firedBullet = Instantiate(bullet, bulletSpawn.GetComponent<Transform>().position, bulletSpawn.GetComponent<Transform>().rotation);
-        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn.GetComponent<Transform>().up * 10f;
+        GameObject firedBullet = Instantiate(tankShell, bulletSpawn.GetComponent<Transform>().position, bulletSpawn.GetComponent<Transform>().rotation);
+        firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn.GetComponent<Transform>().up * 15f;
         canShoot = false;
         startTime = Time.time;
         timer = startTime;

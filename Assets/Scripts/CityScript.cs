@@ -9,11 +9,12 @@ public class CityScript : MonoBehaviour
     private float spawnNr;
 
     [SerializeField] private GameObject soldier;
+    [SerializeField] private GameObject tank;
 
     // Start is called before the first frame update
     void Start()
     {
-        maxSpawnNr = 1001;
+        maxSpawnNr = 3001;
     }
 
     // Update is called once per frame
@@ -26,14 +27,15 @@ public class CityScript : MonoBehaviour
     {
         spawnNr = Random.Range(1, maxSpawnNr);
 
-        if(spawnNr > 804 && spawnNr < 815)
+        if(spawnNr > 804 && spawnNr < 820)
         {
             Debug.Log("Spawn Foot Soldier");
             GameObject soldierInstant = Instantiate(soldier, gameObject.transform.position, gameObject.transform.rotation);
-        } else if(spawnNr > 211 && spawnNr < 216)
+        } else if(spawnNr > 311 && spawnNr < 315)
         {
             Debug.Log("Spawn Tank");
-        } else if(spawnNr > 521 && spawnNr < 524)
+            GameObject tankInstant = Instantiate(tank, gameObject.transform.position, gameObject.transform.rotation);
+        } else if(spawnNr > 1332 && spawnNr < 1334)
         {
             Debug.Log("Spawn Figher Jet");
         }

@@ -96,3 +96,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soldier: {fileID: 2838100074207916681, guid: 5d0801b0aafeea14382b7cbbf878f98f, type: 3}
+  tank: {fileID: 1153502275296880421, guid: 5387f9fe9a493364bb74fd61fad5ffc3, type: 3}
