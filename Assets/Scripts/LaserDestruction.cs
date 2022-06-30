@@ -4,21 +4,29 @@ using UnityEngine;
 
 public class LaserDestruction : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
-    }
+    private SoldierScript soldierScript;
+    private TankScript tankScript;
+    private JetScript jetScript;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Destroy(gameObject);
+        if (collision.gameObject.tag == "Soldier")
+        {
+            soldierScript = collision.gameObject.GetComponent<SoldierScript>();
+            soldierScript.TakeDamage();
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Tank")
+        {
+            tankScript = collision.gameObject.GetComponent<TankScript>();
+            tankScript.TakeDamage();
+            Destroy(gameObject);
+        }
+        else if (collision.gameObject.tag == "Jet")
+        {
+            jetScript = collision.gameObject.GetComponent<JetScript>();
+            jetScript.TakeDamage();
+            Destroy(gameObject);
+        }
     }
 }

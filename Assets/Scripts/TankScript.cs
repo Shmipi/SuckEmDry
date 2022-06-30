@@ -91,11 +91,8 @@ public class TankScript : MonoBehaviour
         timer = startTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage()
     {
-        if(collision.gameObject.tag == "PlayerLaser")
-        {
-            health -= 1;
-        }
+        health -= 1;
     }
 }

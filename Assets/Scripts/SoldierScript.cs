@@ -8,6 +8,7 @@ public class SoldierScript : MonoBehaviour
 
     [SerializeField] private float speed = 2.5f;
     private GameObject player;
+    private float health;
 
     private Vector2 lookDirection;
     private float lookAngle;
@@ -26,6 +27,8 @@ public class SoldierScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = 1f;
+
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -61,6 +64,11 @@ public class SoldierScript : MonoBehaviour
                 canShoot = true;
             }
         }
+
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
         
     }
 
@@ -81,11 +89,8 @@ public class SoldierScript : MonoBehaviour
         timer = startTime;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void TakeDamage()
     {
-        if (collision.gameObject.tag == "PlayerLaser")
-        {
-            Destroy(gameObject);
-        }
+        health -= 1;
     }
 }
