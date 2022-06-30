@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed;
 
     public Rigidbody2D body;
+    private Animator animator;
 
     private Vector2 moveDirection;
 
@@ -14,6 +15,11 @@ public class PlayerMovement : MonoBehaviour
     private float lookAngle;
 
     public bool extracting;
+
+    private void Start()
+    {
+        animator = gameObject.GetComponent<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -27,12 +33,14 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("e"))
         {
             extracting = true;
+            animator.SetBool("isHarvesting", true);
             Debug.Log(extracting);
         }
 
         if (Input.GetKeyUp("e"))
         {
             extracting = false;
+            animator.SetBool("isHarvesting", false);
             Debug.Log(extracting);
         }
     }

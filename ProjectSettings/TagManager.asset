@@ -12,6 +12,7 @@ TagManager:
   - WorldTile
   - Enemy
   - Bullet
+  - jetTarget
   layers:
   - Default
   - TransparentFX
