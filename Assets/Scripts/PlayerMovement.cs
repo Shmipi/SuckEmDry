@@ -16,6 +16,9 @@ public class PlayerMovement : MonoBehaviour
 
     public bool extracting;
 
+    [SerializeField] GameObject laserGun;
+    [SerializeField] GameObject laser;
+
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
@@ -43,6 +46,11 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isHarvesting", false);
             Debug.Log(extracting);
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            FireBullet();
+        }
     }
 
     private void FixedUpdate()
@@ -61,5 +69,11 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         body.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+    }
+
+    private void FireBullet()
+    {
+        GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
+        firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 10f;
     }
 }

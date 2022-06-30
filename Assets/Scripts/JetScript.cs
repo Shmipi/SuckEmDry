@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JetScript : MonoBehaviour
 {
+    private float health;
 
     [SerializeField] private float speed = 9f;
     private GameObject player;
@@ -35,9 +36,12 @@ public class JetScript : MonoBehaviour
         canShoot = true;
         shotOne = false;
 
+        health = 5f;
+
         player = GameObject.FindGameObjectWithTag("Player");
 
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
+        Physics2D.IgnoreLayerCollision(7, 9);
 
         movingTowards = true;
 
@@ -107,6 +111,11 @@ public class JetScript : MonoBehaviour
             }
         }
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void FixedUpdate()
@@ -153,6 +162,14 @@ public class JetScript : MonoBehaviour
             shotOne = false;
             startTime = Time.time;
             timer = startTime;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerLaser")
+        {
+            health -= 1;
         }
     }
 }

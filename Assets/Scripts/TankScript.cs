@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class TankScript : MonoBehaviour
 {
+
+    private float health;
+
     private Animator animator;
 
     [SerializeField] private float speed = 5f;
@@ -26,6 +29,7 @@ public class TankScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = 10f;
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
 
@@ -63,6 +67,11 @@ public class TankScript : MonoBehaviour
             }
         }
 
+        if(health <= 0)
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     private void FixedUpdate()
@@ -80,5 +89,13 @@ public class TankScript : MonoBehaviour
         canShoot = false;
         startTime = Time.time;
         timer = startTime;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "PlayerLaser")
+        {
+            health -= 1;
+        }
     }
 }

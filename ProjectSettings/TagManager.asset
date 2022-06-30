@@ -13,6 +13,7 @@ TagManager:
   - Enemy
   - Bullet
   - jetTarget
+  - PlayerLaser
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Player
   - Enemies
   - EnemyProjectiles
-  - 
+  - FlyingEnemies
   - 
   - 
   - 
@@ -56,6 +57,9 @@ TagManager:
   - name: Resources and Cities
     uniqueID: 329073301
     locked: 0
-  - name: Player and enemies
+  - name: Enemies
     uniqueID: 333801073
+    locked: 0
+  - name: Player
+    uniqueID: 1633155467
     locked: 0

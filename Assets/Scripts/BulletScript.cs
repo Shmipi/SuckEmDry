@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
     void Start()
     {
         Physics2D.IgnoreLayerCollision(8, 7);
+        Physics2D.IgnoreLayerCollision(8, 9);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
