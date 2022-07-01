@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GCScript : MonoBehaviour
 {
-    private CityScript cityScript;
+    private GameObject[] cityObjects;
 
     private float respawnVar;
 
@@ -28,9 +28,22 @@ public class GCScript : MonoBehaviour
     private GameObject mountainObject;
     private GameObject oilObject;
 
+    [SerializeField] private GameObject winBanner;
+    [SerializeField] private GameObject loseBanner;
+
     // Start is called before the first frame update
     void Start()
     {
+        lake = false;
+        woods = false;
+        mountain = false;
+        oil = false;
+        cities = 0;
+
+
+        winBanner.SetActive(false);
+        loseBanner.SetActive(false);
+
         worldTiles = GameObject.FindGameObjectsWithTag("WorldTile");
 
         for(int i = 0; i < worldTiles.Length; i++)
@@ -44,10 +57,8 @@ public class GCScript : MonoBehaviour
         for(int i = 0; i < worldTiles.Length; i++)
         {
             tileScript = worldTiles[i].GetComponent<TileScript>();
-            tileScript.generation();
+            tileScript.Generation();
         }
-
-        cityScript = GameObject.FindGameObjectWithTag("City").GetComponent<CityScript>();
 
         respawnVar = 1200f;
         Debug.Log("RespawnVar" + respawnVar);
@@ -93,18 +104,27 @@ public class GCScript : MonoBehaviour
 
         if(respawnVar <= 0)
         {
-            cityScript.noSpawn();
+            cityObjects = GameObject.FindGameObjectsWithTag("City");
+            for (int i = 0; i < cityObjects.Length; i++)
+            {
+                cityObjects[i].GetComponent<CityScript>().NoSpawn();
+            }
         }
     }
 
-    public void respawnDepletion()
+    public void RespawnDepletion()
     {
         respawnVar -= 100f;
-        cityScript.spawnUp();
         Debug.Log("RespawnVar" + respawnVar);
+        cityObjects = GameObject.FindGameObjectsWithTag("City");
+
+        for (int i = 0; i < cityObjects.Length; i++)
+        {
+            cityObjects[i].GetComponent<CityScript>().SpawnUp();
+        }
     }
 
-    public void cityCounter()
+    public void CityCounter()
     {
         cities += 1;
     }
@@ -112,10 +132,12 @@ public class GCScript : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over");
+        loseBanner.SetActive(true);
     }
 
     private void GameWon()
     {
         Debug.Log("You Win!");
+        winBanner.SetActive(true);
     }
 }

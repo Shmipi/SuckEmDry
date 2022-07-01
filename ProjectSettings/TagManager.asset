@@ -18,6 +18,7 @@ TagManager:
   - Tank
   - Soldier
   - Rocket
+  - Border
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Enemies
   - EnemyProjectiles
   - FlyingEnemies
-  - 
+  - Border
   - 
   - 
   - 

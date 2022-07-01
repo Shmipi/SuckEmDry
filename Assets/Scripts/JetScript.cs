@@ -43,6 +43,7 @@ public class JetScript : MonoBehaviour
 
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
         Physics2D.IgnoreLayerCollision(7, 9);
+        Physics2D.IgnoreLayerCollision(9, 10);
 
         movingTowards = true;
 
@@ -55,60 +56,66 @@ public class JetScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var step = speed * Time.deltaTime;
-
-        if (movingTowards == true)
+        if(player.GetComponent<PlayerMovement>().isAlive == true)
         {
-            lookDirection = player.GetComponent<Transform>().position - transform.position;
-            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
+            var step = speed * Time.deltaTime;
 
-            transform.position = Vector3.MoveTowards(transform.position, player.GetComponent<Transform>().position, step);
+            if (movingTowards == true)
+            {
+                lookDirection = player.GetComponent<Transform>().position - transform.position;
+                lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
 
-            if(Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) < 9)
+                transform.position = Vector3.MoveTowards(transform.position, player.GetComponent<Transform>().position, step);
+
+                if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) < 9)
+                {
+                    inRange = true;
+                }
+                else
+                {
+                    inRange = false;
+                }
+            }
+            else
             {
-                inRange = true;
-            } else
-            {
+                lookDirection = target.GetComponent<Transform>().position - transform.position;
+                lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
+
+                transform.position = Vector3.MoveTowards(transform.position, target.GetComponent<Transform>().position, step);
+
                 inRange = false;
             }
-        } else
-        {
-            lookDirection = target.GetComponent<Transform>().position - transform.position;
-            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
 
-            transform.position = Vector3.MoveTowards(transform.position, target.GetComponent<Transform>().position, step);
-
-            inRange = false;
-        }
-
-        if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) <= 5)
-        {
-            rocketRange = true;
-            holdTime = 0.5f;
-        } else
-        {
-            rocketRange = false;
-            holdTime = 0.2f;
-        }
-
-        if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) <= 2)
-        {
-            movingTowards = false;
-        }
-
-        if (Mathf.Abs(Vector3.Distance(target.GetComponent<Transform>().position, transform.position)) <= 1)
-        {
-            movingTowards = true;
-        }
-
-        if (canShoot == false)
-        {
-            timer += Time.deltaTime;
-            if (timer > (startTime + holdTime))
+            if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) <= 5)
             {
-                canShoot = true;
+                rocketRange = true;
+                holdTime = 0.5f;
+            }
+            else
+            {
+                rocketRange = false;
+                holdTime = 0.2f;
+            }
+
+            if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) <= 2)
+            {
+                movingTowards = false;
+            }
+
+            if (Mathf.Abs(Vector3.Distance(target.GetComponent<Transform>().position, transform.position)) <= 1)
+            {
+                movingTowards = true;
+            }
+
+            if (canShoot == false)
+            {
+                timer += Time.deltaTime;
+                if (timer > (startTime + holdTime))
+                {
+                    canShoot = true;
+                }
             }
         }
 
@@ -123,11 +130,11 @@ public class JetScript : MonoBehaviour
     {
         if (inRange == true && canShoot == true)
         {
-            fireBullet();
+            FireBullet();
         }
     }
 
-    private void fireBullet()
+    private void FireBullet()
     {
         if(shotOne == false)
         {

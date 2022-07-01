@@ -25,8 +25,6 @@ public class TileScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
-
         rndNr = Random.Range(1, 6);
 
         if(rndNr == 1)
@@ -54,9 +52,11 @@ public class TileScript : MonoBehaviour
         
     }
 
-    public void generation()
+    public void Generation()
     {
-        if(gc.lake == false)
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
+
+        if (gc.lake == false)
         {
             GameObject deposit = Instantiate(lake, gameObject.transform.position, gameObject.transform.rotation);
             gc.lake = true;
@@ -75,7 +75,7 @@ public class TileScript : MonoBehaviour
         } else if(gc.cities < 4)
         {
             GameObject deposit = Instantiate(city, gameObject.transform.position, gameObject.transform.rotation);
-            gc.cityCounter();
+            gc.CityCounter();
         }
     }
 }

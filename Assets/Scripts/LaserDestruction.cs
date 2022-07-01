@@ -33,6 +33,9 @@ public class LaserDestruction : MonoBehaviour
             cityScript = collision.gameObject.GetComponent<CityScript>();
             cityScript.TakeDamage();
             Destroy(gameObject);
+        } else if(collision.gameObject.tag == "Border")
+        {
+            Destroy(gameObject);
         }
     }
 }

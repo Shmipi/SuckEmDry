@@ -39,28 +39,32 @@ public class SoldierScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lookDirection = player.GetComponent<Transform>().position - transform.position;
-        lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
+        if(player.GetComponent<PlayerMovement>().isAlive == true)
+        {
+            lookDirection = player.GetComponent<Transform>().position - transform.position;
+            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
 
-        if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) > 2)
-        {
-            animator.SetBool("isWalking", true);
-            inRange = false;
-            var step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, player.GetComponent<Transform>().position, step);
-        } else
-        {
-            animator.SetBool("isWalking", false);
-            inRange = true;
-        }
-
-        if (canShoot == false)
-        {
-            timer += Time.deltaTime;
-            if(timer > (startTime + holdTime))
+            if (Mathf.Abs(Vector3.Distance(player.GetComponent<Transform>().position, transform.position)) > 2)
             {
-                canShoot = true;
+                animator.SetBool("isWalking", true);
+                inRange = false;
+                var step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, player.GetComponent<Transform>().position, step);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+                inRange = true;
+            }
+
+            if (canShoot == false)
+            {
+                timer += Time.deltaTime;
+                if (timer > (startTime + holdTime))
+                {
+                    canShoot = true;
+                }
             }
         }
 
@@ -68,7 +72,6 @@ public class SoldierScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
 
     private void FixedUpdate()

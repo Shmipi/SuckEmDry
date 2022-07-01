@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D body;
     private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
     private float maxHealth = 1000f;
     public float health;
@@ -29,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+
+        animator.enabled = true;
+        spriteRenderer.enabled = true;
+
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
 
         health = maxHealth;
@@ -39,36 +45,40 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Inputs();
-
-        lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
-
-        if (Input.GetKeyDown("e"))
+        if(isAlive == true)
         {
-            extracting = true;
-            animator.SetBool("isHarvesting", true);
-            Debug.Log(extracting);
-        }
+            Inputs();
 
-        if (Input.GetKeyUp("e"))
-        {
-            extracting = false;
-            animator.SetBool("isHarvesting", false);
-            Debug.Log(extracting);
-        }
+            lookDirection = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);
 
-        if (Input.GetMouseButtonDown(0) && extracting == false)
-        {
-            FireBullet();
-        }
+            if (Input.GetKeyDown("e"))
+            {
+                extracting = true;
+                animator.SetBool("isHarvesting", true);
+                Debug.Log(extracting);
+            }
 
-        if (health <= 0)
-        {
-            Destroy(gameObject);
-            isAlive = false;
-            gc.GameOver();
+            if (Input.GetKeyUp("e"))
+            {
+                extracting = false;
+                animator.SetBool("isHarvesting", false);
+                Debug.Log(extracting);
+            }
+
+            if (Input.GetMouseButtonDown(0) && extracting == false)
+            {
+                FireBullet();
+            }
+
+            if (health <= 0)
+            {
+                animator.enabled = false;
+                spriteRenderer.enabled = false;
+                isAlive = false;
+                gc.GameOver();
+            }
         }
     }
 

@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthBar: {fileID: 3215680767273506788}
   healthBarRender: {fileID: 8097500770461820133}
+  empty: 0
   first: {fileID: 5440105855703404328, guid: acf418775e5faba4fbd89c4fbb8a801a, type: 3}
   second: {fileID: 9096682548122171872, guid: acf418775e5faba4fbd89c4fbb8a801a, type: 3}
   third: {fileID: 605646346409589087, guid: acf418775e5faba4fbd89c4fbb8a801a, type: 3}
@@ -195,14 +196,14 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 639cbc975f23a1044aaf08e087ab93ab, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
     m_Alignment: 4
-    m_AlignByGeometry: 0
+    m_AlignByGeometry: 1
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
@@ -521,7 +522,7 @@ RectTransform:
   m_GameObject: {fileID: 8572248032734918890}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_LocalScale: {x: 0.004, y: 0.004, z: 0.004}
   m_Children:
   - {fileID: 8910885929928747556}
   m_Father: {fileID: 4518026805455302504}
@@ -566,7 +567,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 48
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0

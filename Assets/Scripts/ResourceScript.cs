@@ -63,7 +63,7 @@ public class ResourceScript : MonoBehaviour
 
             if(twoThirds == false)
             {
-                gc.respawnDepletion();
+                gc.RespawnDepletion();
                 twoThirds = true;
             }
         } else if(resourceHealth <= 333 && resourceHealth > 0)
@@ -72,7 +72,7 @@ public class ResourceScript : MonoBehaviour
 
             if(oneThird == false)
             {
-                gc.respawnDepletion();
+                gc.RespawnDepletion();
                 oneThird = true;
             }
         } else if(resourceHealth <= 0)
@@ -81,7 +81,7 @@ public class ResourceScript : MonoBehaviour
 
             if(empty == false)
             {
-                gc.respawnDepletion();
+                gc.RespawnDepletion();
                 empty = true;
             }
         }
