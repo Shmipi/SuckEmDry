@@ -39,7 +39,6 @@ public class SoldierScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         lookDirection = player.GetComponent<Transform>().position - transform.position;
         lookAngle = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, lookAngle - 90f);

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class JetScript : MonoBehaviour
 {
+    private float maxHealth = 5f;
     private float health;
 
     [SerializeField] private float speed = 9f;
@@ -36,7 +37,7 @@ public class JetScript : MonoBehaviour
         canShoot = true;
         shotOne = false;
 
-        health = 5f;
+        health = maxHealth;
 
         player = GameObject.FindGameObjectWithTag("Player");
 

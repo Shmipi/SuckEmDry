@@ -9,6 +9,13 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody2D body;
     private Animator animator;
 
+    private float maxHealth = 1000f;
+    public float health;
+    public bool isAlive;
+
+    public HealthBar healthBar;
+    private GCScript gc;
+
     private Vector2 moveDirection;
 
     private Vector2 lookDirection;
@@ -22,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
+
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        isAlive = true;
     }
 
     // Update is called once per frame
@@ -47,9 +59,16 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log(extracting);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && extracting == false)
         {
             FireBullet();
+        }
+
+        if (health <= 0)
+        {
+            Destroy(gameObject);
+            isAlive = false;
+            gc.GameOver();
         }
     }
 
@@ -74,6 +93,19 @@ public class PlayerMovement : MonoBehaviour
     private void FireBullet()
     {
         GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
-        firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 10f;
+        firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 25f;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Bullet")
+        {
+            health -= 5;
+            healthBar.SetHealth(health);
+        } else if(collision.gameObject.tag == "Rocket")
+        {
+            health -= 10;
+            healthBar.SetHealth(health);
+        }
     }
 }

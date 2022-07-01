@@ -7,6 +7,7 @@ public class LaserDestruction : MonoBehaviour
     private SoldierScript soldierScript;
     private TankScript tankScript;
     private JetScript jetScript;
+    private CityScript cityScript;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,6 +27,11 @@ public class LaserDestruction : MonoBehaviour
         {
             jetScript = collision.gameObject.GetComponent<JetScript>();
             jetScript.TakeDamage();
+            Destroy(gameObject);
+        } else if(collision.gameObject.tag == "City")
+        {
+            cityScript = collision.gameObject.GetComponent<CityScript>();
+            cityScript.TakeDamage();
             Destroy(gameObject);
         }
     }

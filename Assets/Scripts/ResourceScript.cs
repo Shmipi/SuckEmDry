@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class ResourceScript : MonoBehaviour
 {
+    private float maxHealth = 1000f;
     private float resourceHealth;
+    public HealthBar healthBar;
+    public GameObject healthBarRender;
 
     private bool twoThirds;
     private bool oneThird;
-    private bool empty;
+    public bool empty;
 
     private bool isColliding;
 
@@ -40,7 +43,9 @@ public class ResourceScript : MonoBehaviour
         oneThird = false;
         empty = false;
 
-        resourceHealth = 1000f;
+        resourceHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        healthBarRender.SetActive(false);
     }
 
     // Update is called once per frame
@@ -86,7 +91,9 @@ public class ResourceScript : MonoBehaviour
     {
         if(isColliding == true && pm.extracting == true && resourceHealth > 0)
         {
+            healthBar.enabled = true;
             resourceHealth -= 1f;
+            healthBar.SetHealth(resourceHealth);
         }
     }
 
@@ -95,6 +102,7 @@ public class ResourceScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             isColliding = true;
+            healthBarRender.SetActive(true);
         }
     }
 
@@ -103,6 +111,7 @@ public class ResourceScript : MonoBehaviour
         if(collision.gameObject.tag == "Player")
         {
             isColliding = false;
+            healthBarRender.SetActive(false);
         }
     }
 }

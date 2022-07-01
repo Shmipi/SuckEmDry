@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class CityScript : MonoBehaviour
 {
+    private float maxHealth = 1000f;
+    private float health;
+    public HealthBar healthBar;
+    public GameObject healthBarRender;
 
     private float maxSpawnNr;
     private float spawnNr;
@@ -15,13 +19,20 @@ public class CityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        maxSpawnNr = 3001;
+        health = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+        healthBarRender.SetActive(false);
+
+        maxSpawnNr = 4001;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+       if(health <= 0)
+        {
+            Destroy(gameObject);
+        } 
     }
 
     private void FixedUpdate()
@@ -46,5 +57,32 @@ public class CityScript : MonoBehaviour
     public void spawnUp()
     {
         maxSpawnNr += 500;
+    }
+
+    public void noSpawn()
+    {
+        maxSpawnNr = 0;
+    }
+
+    public void TakeDamage()
+    {
+        health -= 10f;
+        healthBar.SetHealth(health);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            healthBarRender.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            healthBarRender.SetActive(false);
+        }
     }
 }
