@@ -57,6 +57,7 @@ public class GCScript : MonoBehaviour
     public float speedIncrease;
 
     [SerializeField] private GameObject explosion;
+    [SerializeField] private GameObject bloodSplatter;
 
     // Start is called before the first frame update
     void Start()
@@ -292,7 +293,7 @@ public class GCScript : MonoBehaviour
         {
             audioSource.pitch = Random.Range(0.8f, 1.0f);
             audioSource.PlayOneShot(soldierDeath);
-            GameObject explosionInstant = Instantiate(explosion, targetTransform.position, targetTransform.rotation);
+            GameObject bloodInstant = Instantiate(bloodSplatter, targetTransform.position, targetTransform.rotation);
         }
         
     }
