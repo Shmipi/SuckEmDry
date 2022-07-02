@@ -12,6 +12,9 @@ public class TankScript : MonoBehaviour
     [SerializeField] private float speed = 5f;
     private GameObject player;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip rocketShot;
+
     private GCScript gc;
 
     private Vector2 lookDirection;
@@ -75,6 +78,7 @@ public class TankScript : MonoBehaviour
         if(health <= 0)
         {
             gc.IncreaseXp(10);
+            gc.DestructionFx(1);
             Destroy(gameObject);
         }
 
@@ -84,14 +88,16 @@ public class TankScript : MonoBehaviour
     {
         if (inRange == true && canShoot == true)
         {
-            fireBullet();
+            FireBullet();
         }
     }
 
-    private void fireBullet()
+    private void FireBullet()
     {
         GameObject firedBullet = Instantiate(tankShell, bulletSpawn.GetComponent<Transform>().position, bulletSpawn.GetComponent<Transform>().rotation);
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn.GetComponent<Transform>().up * 15f;
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(rocketShot);
         canShoot = false;
         startTime = Time.time;
         timer = startTime;

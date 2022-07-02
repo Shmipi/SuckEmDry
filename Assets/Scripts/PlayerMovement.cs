@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     public float health;
     public bool isAlive;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip laserShot;
+
     public HealthBar healthBar;
     private GCScript gc;
 
@@ -86,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.enabled = false;
                 spriteRenderer.enabled = false;
                 isAlive = false;
+                gc.DestructionFx(2);
                 gc.GameOver();
             }
         }
@@ -115,6 +119,8 @@ public class PlayerMovement : MonoBehaviour
         {
             GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
             firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 25f;
+            audioSource.pitch = Random.Range(0.8f, 1.1f);
+            audioSource.PlayOneShot(laserShot);
         } else
         {
             //Front
@@ -132,6 +138,8 @@ public class PlayerMovement : MonoBehaviour
             //Right
             GameObject firedRightLaser = Instantiate(laser, rightGun.GetComponent<Transform>().position, rightGun.GetComponent<Transform>().rotation);
             firedRightLaser.GetComponent<Rigidbody2D>().velocity = rightGun.GetComponent<Transform>().up * 25f;
+            audioSource.pitch = Random.Range(0.8f, 1.1f);
+            audioSource.PlayOneShot(laserShot);
         }
     }
 

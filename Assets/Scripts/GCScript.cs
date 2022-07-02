@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class GCScript : MonoBehaviour
 {
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip destruction;
+    [SerializeField] private AudioClip playerDestruction;
+
     private GameObject[] cityObjects;
 
     private float respawnVar;
@@ -265,5 +269,19 @@ public class GCScript : MonoBehaviour
         }
 
         Debug.Log("Level up! " + lvl);
+    }
+
+    public void DestructionFx(int target)
+    {
+        if(target == 1)
+        {
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(destruction);
+        } else
+        {
+            audioSource.pitch = Random.Range(0.8f, 1.2f);
+            audioSource.PlayOneShot(playerDestruction);
+        }
+        
     }
 }

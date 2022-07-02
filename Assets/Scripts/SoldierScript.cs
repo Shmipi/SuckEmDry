@@ -6,6 +6,9 @@ public class SoldierScript : MonoBehaviour
 {
     private Animator animator;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shot;
+
     [SerializeField] private float speed = 2.5f;
     private GameObject player;
     private GCScript gc;
@@ -90,6 +93,8 @@ public class SoldierScript : MonoBehaviour
     {
         GameObject firedBullet = Instantiate(bullet, bulletSpawn.GetComponent<Transform>().position, bulletSpawn.GetComponent<Transform>().rotation);
         firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn.GetComponent<Transform>().up * 10f;
+        audioSource.pitch = Random.Range(0.8f, 1.2f);
+        audioSource.PlayOneShot(shot);
         canShoot = false;
         startTime = Time.time;
         timer = startTime;

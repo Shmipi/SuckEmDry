@@ -10,6 +10,10 @@ public class JetScript : MonoBehaviour
     [SerializeField] private float speed = 9f;
     private GameObject player;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shot;
+    [SerializeField] private AudioClip rocketShot;
+
     private GCScript gc;
 
     private Vector2 lookDirection;
@@ -125,6 +129,7 @@ public class JetScript : MonoBehaviour
         if(health <= 0)
         {
             gc.IncreaseXp(5);
+            gc.DestructionFx(1);
             Destroy(gameObject);
         }
 
@@ -146,10 +151,14 @@ public class JetScript : MonoBehaviour
             {
                 GameObject firedBullet = Instantiate(bullet, bulletSpawn1.GetComponent<Transform>().position, bulletSpawn1.GetComponent<Transform>().rotation);
                 firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn1.GetComponent<Transform>().up * 25f;
+                audioSource.pitch = Random.Range(0.6f, 1.0f);
+                audioSource.PlayOneShot(shot);
             } else
             {
                 GameObject firedBullet = Instantiate(rocket, bulletSpawn1.GetComponent<Transform>().position, bulletSpawn1.GetComponent<Transform>().rotation);
                 firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn1.GetComponent<Transform>().up * 20f;
+                audioSource.pitch = Random.Range(0.8f, 1.2f);
+                audioSource.PlayOneShot(rocketShot);
             }
 
             canShoot = false;
@@ -163,11 +172,15 @@ public class JetScript : MonoBehaviour
             {
                 GameObject firedBullet = Instantiate(bullet, bulletSpawn2.GetComponent<Transform>().position, bulletSpawn2.GetComponent<Transform>().rotation);
                 firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn2.GetComponent<Transform>().up * 25f;
+                audioSource.pitch = Random.Range(0.6f, 1.0f);
+                audioSource.PlayOneShot(shot);
             }
             else
             {
                 GameObject firedBullet = Instantiate(rocket, bulletSpawn2.GetComponent<Transform>().position, bulletSpawn2.GetComponent<Transform>().rotation);
                 firedBullet.GetComponent<Rigidbody2D>().velocity = bulletSpawn2.GetComponent<Transform>().up * 20f;
+                audioSource.pitch = Random.Range(0.8f, 1.2f);
+                audioSource.PlayOneShot(rocketShot);
             }
 
             canShoot = false;

@@ -9,6 +9,9 @@ public class CityScript : MonoBehaviour
     public HealthBar healthBar;
     public GameObject healthBarRender;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip damage;
+
     private GCScript gc;
 
     private float maxSpawnNr;
@@ -39,6 +42,7 @@ public class CityScript : MonoBehaviour
         {
             gc.IncreaseXp(20);
             gc.CityDestruction();
+            gc.DestructionFx(1);
             Destroy(gameObject);
         } 
     }
