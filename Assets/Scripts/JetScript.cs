@@ -10,6 +10,8 @@ public class JetScript : MonoBehaviour
     [SerializeField] private float speed = 9f;
     private GameObject player;
 
+    private GCScript gc;
+
     private Vector2 lookDirection;
     private float lookAngle;
 
@@ -40,6 +42,7 @@ public class JetScript : MonoBehaviour
         health = maxHealth;
 
         player = GameObject.FindGameObjectWithTag("Player");
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
 
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
         Physics2D.IgnoreLayerCollision(7, 9);
@@ -121,6 +124,7 @@ public class JetScript : MonoBehaviour
 
         if(health <= 0)
         {
+            gc.IncreaseXp(5);
             Destroy(gameObject);
         }
 
@@ -175,6 +179,6 @@ public class JetScript : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= 1;
+        health -= 1 * gc.damageMultiplier;
     }
 }

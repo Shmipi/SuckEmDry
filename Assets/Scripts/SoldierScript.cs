@@ -8,6 +8,8 @@ public class SoldierScript : MonoBehaviour
 
     [SerializeField] private float speed = 2.5f;
     private GameObject player;
+    private GCScript gc;
+
     private float health;
 
     private Vector2 lookDirection;
@@ -31,6 +33,7 @@ public class SoldierScript : MonoBehaviour
 
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
 
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
         canShoot = true;
@@ -70,6 +73,7 @@ public class SoldierScript : MonoBehaviour
 
         if(health <= 0)
         {
+            gc.IncreaseXp(1);
             Destroy(gameObject);
         }
     }
@@ -93,6 +97,6 @@ public class SoldierScript : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= 1;
+        health -= 1 * gc.damageMultiplier;
     }
 }

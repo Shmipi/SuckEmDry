@@ -6,6 +6,9 @@ public class TileScript : MonoBehaviour
 {
     private GCScript gc;
 
+    private bool hasDeposit;
+    private bool hasCity;
+
     [SerializeField] private SpriteRenderer spriteRenderer;
 
     [SerializeField] private Sprite img1;
@@ -25,6 +28,9 @@ public class TileScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        hasDeposit = false;
+        hasCity = false;
+
         rndNr = Random.Range(1, 6);
 
         if(rndNr == 1)
@@ -43,7 +49,6 @@ public class TileScript : MonoBehaviour
         {
             spriteRenderer.sprite = img5;
         }
-
     }
 
     // Update is called once per frame
@@ -56,26 +61,39 @@ public class TileScript : MonoBehaviour
     {
         gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
 
-        if (gc.lake == false)
+        if(hasDeposit == false && hasCity == false)
         {
-            GameObject deposit = Instantiate(lake, gameObject.transform.position, gameObject.transform.rotation);
-            gc.lake = true;
-        } else if (gc.woods == false)
-        {
-            GameObject deposit = Instantiate(woods, gameObject.transform.position, gameObject.transform.rotation);
-            gc.woods = true;
-        } else if(gc.mountain == false)
-        {
-            GameObject deposit = Instantiate(mountain, gameObject.transform.position, gameObject.transform.rotation);
-            gc.mountain = true;
-        } else if (gc.oil == false)
-        {
-            GameObject deposit = Instantiate(oil, gameObject.transform.position, gameObject.transform.rotation);
-            gc.oil = true;
-        } else if(gc.cities < 4)
-        {
-            GameObject deposit = Instantiate(city, gameObject.transform.position, gameObject.transform.rotation);
-            gc.CityCounter();
+            if (gc.lake == false)
+            {
+                GameObject deposit = Instantiate(lake, gameObject.transform.position, gameObject.transform.rotation);
+                gc.lake = true;
+                hasDeposit = true;
+            }
+            else if (gc.woods == false)
+            {
+                GameObject deposit = Instantiate(woods, gameObject.transform.position, gameObject.transform.rotation);
+                gc.woods = true;
+                hasDeposit = true;
+            }
+            else if (gc.mountain == false)
+            {
+                GameObject deposit = Instantiate(mountain, gameObject.transform.position, gameObject.transform.rotation);
+                gc.mountain = true;
+                hasDeposit = true;
+            }
+            else if (gc.oil == false)
+            {
+                GameObject deposit = Instantiate(oil, gameObject.transform.position, gameObject.transform.rotation);
+                gc.oil = true;
+                hasDeposit = true;
+            }
+            else if (gc.cities < 4)
+            {
+                GameObject deposit = Instantiate(city, gameObject.transform.position, gameObject.transform.rotation);
+                gc.CityCounter();
+                Debug.Log("Spawned cities!" + gc.cities);
+                hasCity = true;
+            }
         }
     }
 }

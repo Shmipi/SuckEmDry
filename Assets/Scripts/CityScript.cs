@@ -9,6 +9,8 @@ public class CityScript : MonoBehaviour
     public HealthBar healthBar;
     public GameObject healthBarRender;
 
+    private GCScript gc;
+
     private float maxSpawnNr;
     private float spawnNr;
     private bool doesSpawn;
@@ -20,12 +22,14 @@ public class CityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
+
         doesSpawn = true;
         health = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
         healthBarRender.SetActive(false);
 
-        maxSpawnNr = 4001;
+        maxSpawnNr = 2001;
     }
 
     // Update is called once per frame
@@ -33,6 +37,8 @@ public class CityScript : MonoBehaviour
     {
        if(health <= 0)
         {
+            gc.IncreaseXp(20);
+            gc.CityDestruction();
             Destroy(gameObject);
         } 
     }
@@ -73,7 +79,7 @@ public class CityScript : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= 10f;
+        health -= 10 * gc.damageMultiplier;
         healthBar.SetHealth(health);
     }
 

@@ -25,10 +25,19 @@ public class PlayerMovement : MonoBehaviour
     public bool extracting;
 
     [SerializeField] GameObject laserGun;
+    [SerializeField] GameObject backGun;
+    [SerializeField] GameObject leftGun;
+    [SerializeField] GameObject rightGun;
     [SerializeField] GameObject laser;
+
+    public bool secretActive;
 
     private void Start()
     {
+        secretActive = false;
+
+        moveSpeed = 10;
+
         animator = gameObject.GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 
@@ -97,13 +106,33 @@ public class PlayerMovement : MonoBehaviour
 
     void Move()
     {
-        body.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        body.velocity = new Vector2(moveDirection.x * (moveSpeed + gc.speedIncrease), moveDirection.y * (moveSpeed + gc.speedIncrease));
     }
 
     private void FireBullet()
     {
-        GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
-        firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 25f;
+        if(secretActive == false)
+        {
+            GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
+            firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 25f;
+        } else
+        {
+            //Front
+            GameObject firedLaser = Instantiate(laser, laserGun.GetComponent<Transform>().position, laserGun.GetComponent<Transform>().rotation);
+            firedLaser.GetComponent<Rigidbody2D>().velocity = laserGun.GetComponent<Transform>().up * 25f;
+
+            //Back
+            GameObject firedBackLaser = Instantiate(laser, backGun.GetComponent<Transform>().position, backGun.GetComponent<Transform>().rotation);
+            firedBackLaser.GetComponent<Rigidbody2D>().velocity = backGun.GetComponent<Transform>().up * 25f;
+
+            //Left
+            GameObject firedLeftLaser = Instantiate(laser, leftGun.GetComponent<Transform>().position, leftGun.GetComponent<Transform>().rotation);
+            firedLeftLaser.GetComponent<Rigidbody2D>().velocity = leftGun.GetComponent<Transform>().up * 25f;
+
+            //Right
+            GameObject firedRightLaser = Instantiate(laser, rightGun.GetComponent<Transform>().position, rightGun.GetComponent<Transform>().rotation);
+            firedRightLaser.GetComponent<Rigidbody2D>().velocity = rightGun.GetComponent<Transform>().up * 25f;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

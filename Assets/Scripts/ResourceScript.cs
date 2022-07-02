@@ -92,7 +92,7 @@ public class ResourceScript : MonoBehaviour
         if(isColliding == true && pm.extracting == true && resourceHealth > 0)
         {
             healthBar.enabled = true;
-            resourceHealth -= 1f;
+            resourceHealth -= 1 * gc.harvestMultiplier;
             healthBar.SetHealth(resourceHealth);
         }
     }

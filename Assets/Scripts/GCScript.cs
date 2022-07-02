@@ -8,6 +8,12 @@ public class GCScript : MonoBehaviour
     private GameObject[] cityObjects;
 
     private float respawnVar;
+    private int cityRespawnVar;
+    private bool canRespawn;
+
+    private float startTime = 0f;
+    private float holdTime = 0.1f;
+    private float timer = 0f;
 
     private GameObject[] worldTiles;
     private TileScript tileScript;
@@ -31,9 +37,35 @@ public class GCScript : MonoBehaviour
     [SerializeField] private GameObject winBanner;
     [SerializeField] private GameObject loseBanner;
 
+    [SerializeField] private XPScript xPScript;
+    [SerializeField] private GameObject levelUpBar;
+    [SerializeField] private GameObject secretButton;
+
+    private float maxXp = 100f;
+    public float xp;
+
+    private float lvl;
+
+    public float damageMultiplier;
+    public float harvestMultiplier;
+    public float speedIncrease;
+
     // Start is called before the first frame update
     void Start()
     {
+        startTime = 0f;
+        holdTime = 0.1f;
+        timer = 0f;
+
+        levelUpBar.SetActive(false);
+        xp = 0f;
+        lvl = 0f;
+        xPScript.SetMaxXp(maxXp, xp);
+
+        damageMultiplier = 1f;
+        harvestMultiplier = 1f;
+        speedIncrease = 0f;
+
         lake = false;
         woods = false;
         mountain = false;
@@ -61,6 +93,8 @@ public class GCScript : MonoBehaviour
         }
 
         respawnVar = 1200f;
+        cityRespawnVar = 201;
+        canRespawn = true;
         Debug.Log("RespawnVar" + respawnVar);
 
         lakeText.enabled = false;
@@ -110,11 +144,43 @@ public class GCScript : MonoBehaviour
                 cityObjects[i].GetComponent<CityScript>().NoSpawn();
             }
         }
+        if(lvl < 5)
+        {
+            if (xp >= maxXp)
+            {
+                LevelUp();
+            }
+        }
+
+        if(cities < 4 && canRespawn == true)
+        {
+            int citySpawnChance = Random.Range(0, cityRespawnVar);
+            Debug.Log("Attempting to spawn " + citySpawnChance);
+            if (citySpawnChance == 136)
+            {
+                Debug.Log("Spawn Time!");
+                int tileToSpawn = Random.Range(0, worldTiles.Length + 1);
+                worldTiles[tileToSpawn].GetComponent<TileScript>().Generation();
+            }
+            canRespawn = false;
+            startTime = Time.time;
+            timer = startTime;
+        }
+
+        if(canRespawn == false)
+        {
+            timer += Time.deltaTime;
+            if (timer > (startTime + holdTime))
+            {
+                canRespawn = true;
+            }
+        }
     }
 
     public void RespawnDepletion()
     {
         respawnVar -= 100f;
+        cityRespawnVar += 100;
         Debug.Log("RespawnVar" + respawnVar);
         cityObjects = GameObject.FindGameObjectsWithTag("City");
 
@@ -129,6 +195,11 @@ public class GCScript : MonoBehaviour
         cities += 1;
     }
 
+    public void CityDestruction()
+    {
+        cities -= 1;
+    }
+
     public void GameOver()
     {
         Debug.Log("Game Over");
@@ -139,5 +210,60 @@ public class GCScript : MonoBehaviour
     {
         Debug.Log("You Win!");
         winBanner.SetActive(true);
+    }
+
+    public void IncreaseDamage()
+    {
+        damageMultiplier += 1;
+
+        Debug.Log("Damage up!");
+    }
+
+    public void IncreaseHarvest()
+    {
+        harvestMultiplier += 1;
+
+        Debug.Log("Harvest up!");
+    }
+
+    public void IncreaseSpeed()
+    {
+        speedIncrease += 2;
+
+        Debug.Log("Speed up!");
+    }
+
+    public void ActivateSecret()
+    {
+        PlayerMovement playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        playerScript.secretActive = true;
+    }
+
+    public void IncreaseXp(float xpIncrease)
+    {
+        if(lvl < 5)
+        {
+            xp += xpIncrease;
+            xPScript.SetXp(xp);
+        } 
+    }
+
+    public void LevelUp()
+    {
+        lvl += 1;
+        levelUpBar.SetActive(true);
+
+        if(lvl < 5)
+        {
+            secretButton.SetActive(false);
+            xp = 0;
+            xPScript.SetXp(xp);
+        } else
+        {
+            secretButton.SetActive(true);
+            xPScript.MaxXpReached();
+        }
+
+        Debug.Log("Level up! " + lvl);
     }
 }

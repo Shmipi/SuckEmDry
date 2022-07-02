@@ -12,6 +12,8 @@ public class TankScript : MonoBehaviour
     [SerializeField] private float speed = 5f;
     private GameObject player;
 
+    private GCScript gc;
+
     private Vector2 lookDirection;
     private float lookAngle;
 
@@ -32,6 +34,7 @@ public class TankScript : MonoBehaviour
         health = 10f;
         animator = gameObject.GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
+        gc = GameObject.FindGameObjectWithTag("GameController").GetComponent<GCScript>();
 
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), gameObject.GetComponent<Collider2D>());
         canShoot = true;
@@ -71,6 +74,7 @@ public class TankScript : MonoBehaviour
 
         if(health <= 0)
         {
+            gc.IncreaseXp(10);
             Destroy(gameObject);
         }
 
@@ -95,6 +99,6 @@ public class TankScript : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= 1;
+        health -= 1 * gc.damageMultiplier;
     }
 }
