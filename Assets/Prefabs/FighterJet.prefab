@@ -231,7 +231,6 @@ MonoBehaviour:
   audioSource: {fileID: 3789067563309420163}
   shot: {fileID: 8300000, guid: be2398bd92344834c81de6085e08d92f, type: 3}
   rocketShot: {fileID: 8300000, guid: 86fbac30436635541a1f96125feed34c, type: 3}
-  damage: {fileID: 8300000, guid: 2f9ee921190b71f488545d3a24e256c8, type: 3}
   bullet: {fileID: 6979459054244934664, guid: 16ee639cc4362a4439fe91442cd179f6, type: 3}
   rocket: {fileID: 530068528823566393, guid: b1b0ad2ed634279438a33cc67af5567f, type: 3}
   bulletSpawn1: {fileID: 235014375}
@@ -245,10 +244,10 @@ AudioSource:
   m_GameObject: {fileID: 7911039425911212858}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4923777242205529278, guid: 256353e925193334482213ce7a91d03b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0

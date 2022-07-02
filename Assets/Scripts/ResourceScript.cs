@@ -9,6 +9,8 @@ public class ResourceScript : MonoBehaviour
     public HealthBar healthBar;
     public GameObject healthBarRender;
 
+    [SerializeField] private AudioSource audioSource;
+
     private bool twoThirds;
     private bool oneThird;
     public bool empty;
@@ -31,6 +33,7 @@ public class ResourceScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioSource.enabled = false;
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = first;
 
@@ -93,8 +96,14 @@ public class ResourceScript : MonoBehaviour
         {
             healthBar.enabled = true;
             resourceHealth -= 1 * gc.harvestMultiplier;
+            audioSource.enabled = true;
             healthBar.SetHealth(resourceHealth);
+        } else
+        {
+            audioSource.enabled = false;
         }
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -165,8 +165,6 @@ MonoBehaviour:
   isAlive: 0
   audioSource: {fileID: -1196162228834502156}
   laserShot: {fileID: 8300000, guid: 5da69839502bb224690e6e2556cf7d0b, type: 3}
-  bulletDamage: {fileID: 8300000, guid: 2f9ee921190b71f488545d3a24e256c8, type: 3}
-  rocketDamage: {fileID: 8300000, guid: 9462447930e778046ac2207b1da4a53e, type: 3}
   healthBar: {fileID: 0}
   extracting: 0
   laserGun: {fileID: 1946974364264672296}
@@ -184,10 +182,10 @@ AudioSource:
   m_GameObject: {fileID: 1946974362667955233}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4923777242205529278, guid: 256353e925193334482213ce7a91d03b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0

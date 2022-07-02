@@ -77,6 +77,7 @@ public class SoldierScript : MonoBehaviour
         if(health <= 0)
         {
             gc.IncreaseXp(1);
+            gc.DestructionFx(0);
             Destroy(gameObject);
         }
     }

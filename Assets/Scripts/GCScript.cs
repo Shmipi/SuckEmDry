@@ -8,6 +8,8 @@ public class GCScript : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip destruction;
     [SerializeField] private AudioClip playerDestruction;
+    [SerializeField] private AudioClip soldierDeath;
+    [SerializeField] private AudioClip levelUp;
 
     private GameObject[] cityObjects;
 
@@ -255,6 +257,7 @@ public class GCScript : MonoBehaviour
     public void LevelUp()
     {
         lvl += 1;
+        audioSource.PlayOneShot(levelUp);
         levelUpBar.SetActive(true);
 
         if(lvl < 5)
@@ -277,10 +280,14 @@ public class GCScript : MonoBehaviour
         {
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(destruction);
-        } else
+        } else if (target == 2)
         {
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(playerDestruction);
+        } else
+        {
+            audioSource.pitch = Random.Range(0.8f, 1.0f);
+            audioSource.PlayOneShot(soldierDeath);
         }
         
     }

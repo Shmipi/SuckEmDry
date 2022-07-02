@@ -9,9 +9,6 @@ public class CityScript : MonoBehaviour
     public HealthBar healthBar;
     public GameObject healthBarRender;
 
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip damage;
-
     private GCScript gc;
 
     private float maxSpawnNr;

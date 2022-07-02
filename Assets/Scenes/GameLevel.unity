@@ -1197,6 +1197,8 @@ MonoBehaviour:
   audioSource: {fileID: 183392586}
   destruction: {fileID: 8300000, guid: 2f9ee921190b71f488545d3a24e256c8, type: 3}
   playerDestruction: {fileID: 8300000, guid: 9462447930e778046ac2207b1da4a53e, type: 3}
+  soldierDeath: {fileID: 8300000, guid: f5f01372d518c004386c94228319b76a, type: 3}
+  levelUp: {fileID: 8300000, guid: 77c0be0596419fa408dc1cd9b0f03040, type: 3}
   lake: 0
   woods: 0
   mountain: 0
@@ -1238,7 +1240,7 @@ AudioSource:
   m_GameObject: {fileID: 183392583}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 4923777242205529278, guid: 256353e925193334482213ce7a91d03b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -1247,7 +1249,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 100
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -7296,7 +7298,7 @@ AudioSource:
   m_GameObject: {fileID: 1342875307}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 6743156872513888466, guid: 256353e925193334482213ce7a91d03b, type: 2}
   m_audioClip: {fileID: 8300000, guid: 5a4ad2c121041c7449ca96c61d081e8e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.6
@@ -11595,6 +11597,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1196162228834502156, guid: abfde3e1d794feb4a86c89a50fb2c599, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: 4923777242205529278, guid: 256353e925193334482213ce7a91d03b, type: 2}
     - target: {fileID: 555239367424325832, guid: abfde3e1d794feb4a86c89a50fb2c599, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
