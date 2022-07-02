@@ -78,7 +78,7 @@ public class TankScript : MonoBehaviour
         if(health <= 0)
         {
             gc.IncreaseXp(10);
-            gc.DestructionFx(1);
+            gc.DestructionFx(1, gameObject.transform);
             Destroy(gameObject);
         }
 

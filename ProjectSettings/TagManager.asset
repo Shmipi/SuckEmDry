@@ -19,6 +19,7 @@ TagManager:
   - Soldier
   - Rocket
   - Border
+  - Explosion
   layers:
   - Default
   - TransparentFX

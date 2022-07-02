@@ -56,6 +56,8 @@ public class GCScript : MonoBehaviour
     public float harvestMultiplier;
     public float speedIncrease;
 
+    [SerializeField] private GameObject explosion;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -274,20 +276,23 @@ public class GCScript : MonoBehaviour
         Debug.Log("Level up! " + lvl);
     }
 
-    public void DestructionFx(int target)
+    public void DestructionFx(int target, Transform targetTransform)
     {
         if(target == 1)
         {
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(destruction);
+            GameObject explosionInstant = Instantiate(explosion, targetTransform.position, targetTransform.rotation);
         } else if (target == 2)
         {
             audioSource.pitch = Random.Range(0.8f, 1.2f);
             audioSource.PlayOneShot(playerDestruction);
+            GameObject explosionInstant = Instantiate(explosion, targetTransform.position, targetTransform.rotation);
         } else
         {
             audioSource.pitch = Random.Range(0.8f, 1.0f);
             audioSource.PlayOneShot(soldierDeath);
+            GameObject explosionInstant = Instantiate(explosion, targetTransform.position, targetTransform.rotation);
         }
         
     }

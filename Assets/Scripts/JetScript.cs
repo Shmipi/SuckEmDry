@@ -129,7 +129,7 @@ public class JetScript : MonoBehaviour
         if(health <= 0)
         {
             gc.IncreaseXp(5);
-            gc.DestructionFx(1);
+            gc.DestructionFx(1, gameObject.transform);
             Destroy(gameObject);
         }
 

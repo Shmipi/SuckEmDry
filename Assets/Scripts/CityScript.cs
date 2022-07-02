@@ -39,7 +39,7 @@ public class CityScript : MonoBehaviour
         {
             gc.IncreaseXp(20);
             gc.CityDestruction();
-            gc.DestructionFx(1);
+            gc.DestructionFx(1, gameObject.transform);
             Destroy(gameObject);
         } 
     }

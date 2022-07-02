@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.enabled = false;
                 spriteRenderer.enabled = false;
                 isAlive = false;
-                gc.DestructionFx(2);
+                gc.DestructionFx(2, gameObject.transform);
                 gc.GameOver();
             }
         }
