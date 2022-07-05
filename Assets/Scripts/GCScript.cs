@@ -46,6 +46,7 @@ public class GCScript : MonoBehaviour
     [SerializeField] private XPScript xPScript;
     [SerializeField] private GameObject levelUpBar;
     [SerializeField] private GameObject secretButton;
+    [SerializeField] private GameObject levelTutorial;
 
     private float maxXp = 100f;
     public float xp;
@@ -266,11 +267,17 @@ public class GCScript : MonoBehaviour
         if(lvl < 5)
         {
             secretButton.SetActive(false);
+            levelTutorial.SetActive(false);
             xp = 0;
             xPScript.SetXp(xp);
+            if(lvl == 1)
+            {
+                levelTutorial.SetActive(true);
+            }
         } else
         {
             secretButton.SetActive(true);
+            levelTutorial.SetActive(false);
             xPScript.MaxXpReached();
         }
 
